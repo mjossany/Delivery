@@ -5,7 +5,7 @@ const Product = (sequelize, DataTypes) => {
       unique: true,
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(4,2),
     },
     url_image: DataTypes.STRING,
   },
