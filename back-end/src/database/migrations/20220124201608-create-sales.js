@@ -16,7 +16,7 @@ module.exports = {
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'id',
         },
         defaultValue: true,
         field: 'user_id',
@@ -47,7 +47,7 @@ module.exports = {
       },
       sale_date: {
         allowNull: false,
-        type: Sequelize.DATETIME
+        type: Sequelize.DATE
       },
       status: {
         allowNull: false,
