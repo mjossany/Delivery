@@ -1,4 +1,4 @@
-const { BAD_REQUEST } = require('http-status-codes').StatusCodes;
+const { BAD_REQUEST, NOT_FOUND } = require('http-status-codes').StatusCodes;
 
 const PASSWORD_MIN_LENGTH = {
   status: BAD_REQUEST,
@@ -10,7 +10,13 @@ const EMAIL_FORMAT = {
   message: 'O email deve cumprir o padrão <email>@<domínioPrincipal>.<domínioGenérico>',
 };
 
+const UNREGISTERED_USER = {
+  status: NOT_FOUND,
+  message: 'Email ou password inválidos'
+};
+
 module.exports = {
   PASSWORD_MIN_LENGTH,
   EMAIL_FORMAT,
+  UNREGISTERED_USER,
 };
