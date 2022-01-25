@@ -8,8 +8,8 @@ return null;
 };
 
 const validatePassword = (password) => {
-  if (!password.length === 6) return PASSWORD_MIN_LENGTH;
-  return null;
+  if (password.length === 6) return null;
+  return PASSWORD_MIN_LENGTH;
 }
 
 module.exports = (email, password) => {
