@@ -15,8 +15,14 @@ const UNREGISTERED_USER = {
   message: 'Email ou password inválidos'
 };
 
+const NAME_MAX_LENGTH = {
+  status: BAD_REQUEST,
+  message: 'O name deve possuir no máximo 11 caracteres',
+};
+
 module.exports = {
   PASSWORD_MIN_LENGTH,
   EMAIL_FORMAT,
   UNREGISTERED_USER,
+  NAME_MAX_LENGTH,
 };
