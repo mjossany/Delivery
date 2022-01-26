@@ -30,7 +30,6 @@ const validateRegisterInfos = (email, password, name) => {
   const validEmail = validateEmail(email);
   const validPassword = validatePassword(password);
   const validName = validateName(name);
-  console.log(email, password, name);
   if (validEmail || validPassword || validName) return(validEmail || validPassword || validName);
   return null;
 };

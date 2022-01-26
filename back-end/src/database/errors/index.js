@@ -1,4 +1,4 @@
-const { BAD_REQUEST, NOT_FOUND } = require('http-status-codes').StatusCodes;
+const { BAD_REQUEST, NOT_FOUND, CONFLICT } = require('http-status-codes').StatusCodes;
 
 const PASSWORD_MIN_LENGTH = {
   status: BAD_REQUEST,
@@ -20,9 +20,15 @@ const NAME_MAX_LENGTH = {
   message: 'O name deve possuir no máximo 11 caracteres',
 };
 
+const ALREADY_REGISTERED = {
+  status: CONFLICT,
+  message: 'User already registered',
+}
+
 module.exports = {
   PASSWORD_MIN_LENGTH,
   EMAIL_FORMAT,
   UNREGISTERED_USER,
   NAME_MAX_LENGTH,
+  ALREADY_REGISTERED,
 };
