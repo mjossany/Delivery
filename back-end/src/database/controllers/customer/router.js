@@ -1,5 +1,5 @@
 const express = require('express');
-const getAllProducts = require('../../services/products/getAllProducts');
+const getAllProducts = require('./products/getAllProducts');
 
 const router = express.Router({ mergeParams: true });
 
