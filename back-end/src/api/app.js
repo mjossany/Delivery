@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const { json } = require('body-parser');
 const root = require('../database/controllers/root');
@@ -6,6 +7,8 @@ const error = require('../database/middlewares/error');
 const app = express();
 
 app.use(json());
+
+app.use(cors());
 
 app.use('/', root);
 
