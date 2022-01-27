@@ -3,10 +3,11 @@ import { useHistory } from 'react-router-dom';
 
 function CustomerNavBar() {
   const [initialMessage, setInitialMessage] = useState('');
-  const { name, role } = JSON.parse(localStorage.getItem('user'));
+  const { name, role } = JSON.parse(localStorage.getItem('user')); // isso tira do localstorage o que foi salvo la no login
   const history = useHistory();
   
-  useEffect(() => {
+  // depois da alteracao de estao, se o role (que eh pego do objeto salvo do local storage no login) for uma coisa, exibe uma mensagem especifica. 
+    useEffect(() => {
     if (role === 'customer') {
       setInitialMessage('MEUS PEDIDOS');
     } else if (role === 'administrator') {
