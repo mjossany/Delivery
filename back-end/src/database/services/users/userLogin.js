@@ -7,5 +7,7 @@ module.exports = async ({ email, password: senha }) => {
   const password = md5(senha);
   const user = await User.findOne({ where: { email, password } });
   if(!user) throw UNREGISTERED_USER;
-  return generateToken(user);
+  const token = generateToken(user);
+  const { name, role } = user;
+  return { name, email, role, token};
 };
