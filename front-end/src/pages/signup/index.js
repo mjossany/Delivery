@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/user';
 
-function Signup() {
+const Signup = () => {
+  const { setName, handleRegister,
+    setEmail, setPassword, valid, validName } = useContext(UserContext);
   return (
     <div>
       <div>
@@ -10,6 +13,7 @@ function Signup() {
             type="text"
             name="name"
             data-testid="common_register__input-name"
+            onChange={ (e) => setName(e.target.value) }
           />
         </label>
 
@@ -19,6 +23,7 @@ function Signup() {
             type="text"
             name="email"
             data-testid="common_register__input-email"
+            onChange={ (e) => setEmail(e.target.value) }
           />
         </label>
 
@@ -28,22 +33,24 @@ function Signup() {
             type="password"
             name="password"
             data-testid="common_register__input-password"
+            onChange={ (e) => setPassword(e.target.value) }
           />
         </label>
-
+        {console.log(valid, validName)}
         <button
           type="button"
           data-testid="common_register__button-register"
+          onClick={ () => handleRegister() }
+          disabled={ !valid || !validName }
         >
           Cadastrar
         </button>
         <span
           data-testid="common_register__element-invalid_register"
-        >
-        </span>
+        />
       </div>
     </div>
   );
-}
+};
 
 export default Signup;

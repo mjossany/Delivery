@@ -1,20 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/user';
 
 function Login() {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [disableButton, setDisableButton,] = useState(true);
-
-  // function buttonValid() {
-  //   const passwordLength = 6;
-  //   const regexEmail = /\S+@\S+\.\S+/;
-  //   if (password.length >= passwordLength && regexEmail.test(email)) {
-  //     setDisableButton(false);
-  //     return;
-  //   }
-  //   setDisableButton(true);
-  // }
-
+  const { handleLogin,
+    email, password, setEmail, setPassword, valid } = useContext(UserContext);
+  const navigate = useNavigate();
   return (
     <form>
       <label htmlFor="common_login__input-email">
@@ -23,6 +14,7 @@ function Login() {
           data-testid="common_login__input-email"
           id="common_login__input-email"
           type="email"
+          value={ email }
           onChange={ (e) => setEmail(e.target.value) }
         />
       </label>
@@ -31,20 +23,26 @@ function Login() {
         <input
           data-testid="common_login__input-password"
           id="common_login__input-password"
-          type="password"
+          type="text"
+          value={ password }
           onChange={ (e) => setPassword(e.target.value) }
         />
       </label>
       <button
+        required
         data-testid="common_login__element-invalid-email"
         type="button"
-        disabled={ disableButton }
+        onClick={ () => handleLogin() }
+        disabled={ !valid }
+
       >
         LOGIN
       </button>
       <button
+        required
         data-testid="common_login__button-register"
         type="button"
+        onClick={ () => navigate('/register') }
       >
         Ainda não tenho conta
       </button>
