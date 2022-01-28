@@ -1,16 +1,13 @@
 const Product = (sequelize, DataTypes) => {
   const product = sequelize.define('Product', {
-    name: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    price: {
-      type: DataTypes.DECIMAL(4,2),
-    },
-    url_image: DataTypes.STRING,
+    name: DataTypes.STRING,
+    price: DataTypes.DECIMAL(4,2),
+    urlImage: DataTypes.STRING,
   },
   {
     timestamps: false,
+    underscored: true,
+    tableName: 'products'
   });
   return product;
 };
