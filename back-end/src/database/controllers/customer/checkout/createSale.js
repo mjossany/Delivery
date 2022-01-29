@@ -3,9 +3,10 @@ const createSale = require('../../../services/sales/createSale');
 
 module.exports = async (req, res, next) => {
   try {
-    const {  } = req.body;
-    const saleInfos = await createSale();
-    res.status(CREATED).json(saleInfos);
+    const { id: userId } = req.user
+    const saleInfos = { userId, ...req.body };
+    const saleDetails = await createSale(saleInfos);
+    res.status(CREATED).json(saleDetails);
   } catch (err) {
     next(err);
   }
