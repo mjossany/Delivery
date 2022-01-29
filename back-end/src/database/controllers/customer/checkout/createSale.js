@@ -5,8 +5,8 @@ module.exports = async (req, res, next) => {
   try {
     const { id: userId } = req.user
     const saleInfos = { userId, ...req.body };
-    const saleDetails = await createSale(saleInfos);
-    res.status(CREATED).json(saleDetails);
+    const { id: saleId } = await createSale(saleInfos);
+    res.status(CREATED).json(saleId);
   } catch (err) {
     next(err);
   }

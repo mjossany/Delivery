@@ -4,8 +4,11 @@ const verifyUserSeller = require('../helpers/verifyUserSeller');
 
 module.exports = async (saleInfos) => {
   const { userId, sellerName, totalPrice, deliveryAddress, deliveryNumber, products } = saleInfos;
-  const sameUsers = await verifyUserSeller(userId, sellerName);
-  if (sameUsers) throw SAME_USER;
-  const saleReturn = await Sale.create({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber });
-  return saleReturn;
+  const sellerId = await verifyUserSeller(userId, sellerName);
+  if (!sellerId) throw SAME_USER;
+  const sale = await Sale.create({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber });
+  products.forEach(async ({ productId, quantity }) => {
+    await sale.addProducts(productId, { through: { quantity }});
+  });
+  return sale;
 };

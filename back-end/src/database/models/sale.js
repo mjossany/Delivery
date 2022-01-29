@@ -8,7 +8,7 @@ const Sale = (sequelize, DataTypes) => {
     saleDate: DataTypes.DATE,
     status: {
       type: DataTypes.STRING,
-      defautlValue: 'Pendente',
+      defaultValue: 'Pendente',
     },
   },
   {
