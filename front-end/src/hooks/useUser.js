@@ -18,6 +18,7 @@ const useUser = () => {
         email, password,
       });
       localStorage.setItem('token', JSON.stringify(data));
+      setUser(data);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
