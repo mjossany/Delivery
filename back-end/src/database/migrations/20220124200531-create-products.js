@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Products', {
+    return queryInterface.createTable('products', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,14 +17,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(4,2),
       },
-      url_image: {
+      urlImage: {
         allowNull: false,
         type: Sequelize.STRING,
+        field: 'url_image',
       },
     });
   },
 
   down: async (queryInterface, _Sequelize) => {
-    return queryInterface.dropTable('Products');
+    return queryInterface.dropTable('products');
   },
 };

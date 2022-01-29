@@ -30,7 +30,7 @@ function Login() {
       </label>
       <button
         required
-        data-testid="common_login__element-invalid-email"
+        data-testid="common_login__button-login"
         type="button"
         onClick={ () => handleLogin() }
         disabled={ !valid }
