@@ -19,9 +19,7 @@ const validateName = (name) => {
 
 const validateLoginInfos = (email, password) => {
   const validEmail = validateEmail(email);
-  console.log(validEmail);
   const validPassword = validatePassword(password);
-  console.log(validPassword);
   if (validEmail || validPassword) return(validEmail || validPassword);
   return null;
 };

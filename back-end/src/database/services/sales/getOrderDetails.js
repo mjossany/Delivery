@@ -7,7 +7,7 @@ module.exports = async (idVenda) => {
     include: [
       { model: User, as: 'customer', attributes: { exclude: ['password'] } },
       { model: User, as: 'seller', attributes: { exclude: ['password'] } },
-      { model: Product, as: 'products', attributes: { exclude: ['urlImage'] }, through: { attributes: ['quantity'] } },
+      { model: Product, as: 'products', attributes: { exclude: [''] }, through: { attributes: ['quantity'] } },
     ]
   });
 
