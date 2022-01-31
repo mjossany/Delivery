@@ -23,8 +23,11 @@ const Sale = (sequelize, DataTypes) => {
 
   sale.associate = (models) => {
     sale.belongsTo(models.User,
-      { foreignKey: 'user_id', as: 'customer' },
-      { foreignKey: 'seller_id', as: 'seller' });
+      { foreignKey: 'user_id', as: 'customer' }
+    ),
+    sale.belongsTo(models.User,
+      { foreignKey: 'seller_id', as: 'seller' }
+    );
   };
   return sale;
 };
