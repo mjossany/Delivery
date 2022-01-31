@@ -5,12 +5,15 @@ import './index.css';
 import App from './App';
 import UserProvider from './context/user';
 import ProductsProvider from './context/products';
+import CartProvider from './context/cart';
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
       <ProductsProvider>
-      <App />
+        <CartProvider>
+          <App />
+        </CartProvider>
       </ProductsProvider>
     </UserProvider>
   </React.StrictMode>,

@@ -3,7 +3,7 @@ import { UserContext } from '../../context/user';
 import { ListItem, NavbarList } from './styles';
 
 const NavBar = () => {
-  const { user } = useContext(UserContext);
+  const { user, handleLogout } = useContext(UserContext);
   return (
     <NavbarList>
       <ListItem data-testid="customer_products__element-navbar-link-products">
@@ -17,7 +17,10 @@ const NavBar = () => {
       >
         {user.name}
       </ListItem>
-      <ListItem data-testid="customer_products__element-navbar-link-logout">
+      <ListItem
+        onClick={ () => handleLogout() }
+        data-testid="customer_products__element-navbar-link-logout"
+      >
         Sair
       </ListItem>
     </NavbarList>

@@ -45,6 +45,11 @@ const useUser = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser({});
+  };
+
   useEffect(() => {
     if (errMessage) {
       Swal.fire({
@@ -108,6 +113,7 @@ const useUser = () => {
     handleRegister,
     valid,
     validName,
+    handleLogout,
   };
 };
 

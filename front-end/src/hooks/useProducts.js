@@ -8,7 +8,7 @@ const useProducts = (user) => {
   const fetchProducts = useCallback(async () => {
     console.log(user);
     if (!user) return;
-    const { data } = await api.get(`${user.role}/products`);
+    const { data } = await api.get('customer/products');
     setProducts(data);
     console.log(data);
   }, [user]);
