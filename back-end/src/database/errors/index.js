@@ -40,6 +40,11 @@ const INVALID_TOKEN = {
   message: 'Expired or invalid token',
 };
 
+const SALE_NOT_FOUND = {
+  status: NOT_FOUND,
+  message: 'Sale not found',
+};
+
 module.exports = {
   PASSWORD_MIN_LENGTH,
   EMAIL_FORMAT,
@@ -49,4 +54,5 @@ module.exports = {
   SAME_USER,
   TOKEN_NOT_FOUND,
   INVALID_TOKEN,
+  SALE_NOT_FOUND,
 };
