@@ -1,4 +1,4 @@
-const { PASSWORD_MIN_LENGTH, EMAIL_FORMAT, NAME_MAX_LENGTH } = require("../errors");
+const { PASSWORD_MIN_LENGTH, EMAIL_FORMAT, NAME_MAX_LENGTH, REQUIRED_ROLE } = require("../errors");
 
 const validateEmail = (email) => {
 const regexEmail = /^[\w_\-.]+@[a-z]+\.[a-z]+(\.[a-z]{2,4})?$/;
@@ -17,6 +17,11 @@ const validateName = (name) => {
   return null;
 };
 
+const validateRole = (role) => {
+  if (!role) return REQUIRED_ROLE;
+  return null;
+};
+
 const validateLoginInfos = (email, password) => {
   const validEmail = validateEmail(email);
   const validPassword = validatePassword(password);
@@ -32,7 +37,17 @@ const validateRegisterInfos = (email, password, name) => {
   return null;
 };
 
+const validateAdminRegisterInfos = (email, password, name, role) => {
+  const validName = validateName(name);
+  const validEmail = validateEmail(email);
+  const validPassword = validatePassword(password);
+  const validRole = validateRole(role);
+  if (validEmail || validPassword || validName || validRole) return(validEmail || validPassword || validName || validRole);
+  return null;
+}
+
 module.exports = {
   validateLoginInfos,
   validateRegisterInfos,
+  validateAdminRegisterInfos,
 };

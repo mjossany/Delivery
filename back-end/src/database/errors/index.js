@@ -45,6 +45,21 @@ const SALE_NOT_FOUND = {
   message: 'Sale not found',
 };
 
+const REQUIRED_ROLE = {
+  status: BAD_REQUEST,
+  message: 'Role field must not be empty'
+};
+
+const PERMISSION_DENIED = {
+  status: BAD_REQUEST,
+  message: 'You must be an administrator to execute this action'
+};
+
+const USERS_NOT_FOUND = {
+  status: NOT_FOUND,
+  message: 'User not found'
+}
+
 module.exports = {
   PASSWORD_MIN_LENGTH,
   EMAIL_FORMAT,
@@ -55,4 +70,7 @@ module.exports = {
   TOKEN_NOT_FOUND,
   INVALID_TOKEN,
   SALE_NOT_FOUND,
+  REQUIRED_ROLE,
+  PERMISSION_DENIED,
+  USERS_NOT_FOUND,
 };
