@@ -55,6 +55,11 @@ const PERMISSION_DENIED = {
   message: 'You must be an administrator to execute this action'
 };
 
+const USERS_NOT_FOUND = {
+  status: NOT_FOUND,
+  message: 'User not found'
+}
+
 module.exports = {
   PASSWORD_MIN_LENGTH,
   EMAIL_FORMAT,
@@ -67,4 +72,5 @@ module.exports = {
   SALE_NOT_FOUND,
   REQUIRED_ROLE,
   PERMISSION_DENIED,
+  USERS_NOT_FOUND,
 };
