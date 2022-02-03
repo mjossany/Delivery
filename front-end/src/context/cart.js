@@ -16,6 +16,9 @@ const CartProvider = ({ children }) => {
     sellerName,
     deliveryAddress,
     deliveryNumber,
+    manualHandleAddToCart,
+    sellers,
+    fetchSellers,
   } = useCart();
   return (
     <CartContext.Provider
@@ -34,6 +37,9 @@ const CartProvider = ({ children }) => {
         sellerName,
         deliveryAddress,
         deliveryNumber,
+        manualHandleAddToCart,
+        sellers,
+        fetchSellers,
       } }
     >
       {children}

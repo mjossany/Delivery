@@ -17,7 +17,7 @@ const useUser = () => {
       const { data } = await api.post('/login', {
         email, password,
       });
-      localStorage.setItem('token', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
     } catch (err) {
       if (err.response) {
@@ -46,7 +46,7 @@ const useUser = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(undefined);
   };
 

@@ -13,7 +13,7 @@ export const CartMenuButton = styled.button`
     color: white
 `;
 
-export const CartMenuQuantity = styled.div`
+export const CartMenuQuantity = styled.input`
     width: 20px;
     height: 20px;
 `;

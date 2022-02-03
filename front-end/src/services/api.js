@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3001/';
 
 const getAuth = () => {
-  const auth = JSON.parse(localStorage.getItem('token'));
+  const auth = JSON.parse(localStorage.getItem('user'));
   if (!auth) return '';
   return auth.token || {};
 };
