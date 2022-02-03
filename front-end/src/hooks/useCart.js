@@ -5,6 +5,7 @@ const useCart = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [sellerName, setSellerName] = useState('Fulana Pereira');
+  const [sellers, setSellers] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
 
@@ -58,6 +59,15 @@ const useCart = () => {
     totalPrice();
   }, [cart, totalPrice]);
 
+  const fetchSellers = async () => {
+    try {
+      const { data } = await api.get('/customer/checkout/sellers');
+      setSellers([...data]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const postNewSale = async () => {
     try {
       const { data } = await api.post('/customer/checkout', {
@@ -92,6 +102,8 @@ const useCart = () => {
     deliveryAddress,
     deliveryNumber,
     manualHandleAddToCart,
+    sellers,
+    fetchSellers,
   };
 };
 

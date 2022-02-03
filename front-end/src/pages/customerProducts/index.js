@@ -9,8 +9,13 @@ import { GoToCartButton, ProductsContainer } from './styles';
 
 function CustomerProducts() {
   const { products } = useContext(ProductsContext);
-  const { total } = useContext(CartContext);
+  const { total, cart, fetchSellers } = useContext(CartContext);
   const navigate = useNavigate();
+
+  const navigateAndFetchSellers = async () => {
+    await navigate('/customer/checkout');
+    fetchSellers();
+  };
 
   return (
     <Container>
@@ -26,7 +31,9 @@ function CustomerProducts() {
         }
       </ProductsContainer>
       <GoToCartButton
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => navigateAndFetchSellers() }
+        data-testid="customer_products__button-cart"
+        disabled={ cart.length === 0 }
       >
         Ver carrinho
         <p
