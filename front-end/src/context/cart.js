@@ -6,11 +6,34 @@ export const CartContext = createContext({});
 
 const CartProvider = ({ children }) => {
   const { addToCart, cart, setCart,
-    setTotal, total, removeFromCart, removeProduct } = useCart();
+    setTotal, total,
+    removeFromCart,
+    removeProduct,
+    postNewSale,
+    setDeliveryAddress,
+    setDeliveryNumber,
+    setSellerName,
+    sellerName,
+    deliveryAddress,
+    deliveryNumber,
+  } = useCart();
   return (
     <CartContext.Provider
       value={ {
-        addToCart, cart, setCart, setTotal, total, removeFromCart, removeProduct,
+        addToCart,
+        cart,
+        setCart,
+        setTotal,
+        total,
+        removeFromCart,
+        removeProduct,
+        postNewSale,
+        setDeliveryAddress,
+        setDeliveryNumber,
+        setSellerName,
+        sellerName,
+        deliveryAddress,
+        deliveryNumber,
       } }
     >
       {children}

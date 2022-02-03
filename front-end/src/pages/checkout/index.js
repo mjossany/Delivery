@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,6 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Input, Select } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/cart';
 import { Container } from '../../styles';
 import NavBar from '../../components/navbar';
@@ -19,7 +22,22 @@ const useStyles = makeStyles({
 
 const Checkout = () => {
   const classes = useStyles();
-  const { cart, removeProduct } = useContext(CartContext);
+  const { cart, removeProduct,
+    total,
+    postNewSale,
+    deliveryAddress,
+    deliveryNumber,
+    sellerName,
+    setDeliveryAddress,
+    setDeliveryNumber,
+    setSellerName } = useContext(CartContext);
+  const navigate = useNavigate();
+  const handleSale = async () => {
+    const redirect = await postNewSale();
+    if (redirect) {
+      navigate(`/customer/orders/${redirect}`);
+    }
+  };
   return (
     <Container>
       <NavBar />
@@ -55,6 +73,35 @@ const Checkout = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        total:
+        {' '}
+        {total}
+      </div>
+      <div>
+        <h1>Detalhes e endereço para entrega</h1>
+        <Input
+          onChange={ ({ target }) => setDeliveryAddress(target.value) }
+          value={ deliveryAddress }
+          type="text"
+          placeholder="Nome"
+        />
+        <Select
+          onChange={ ({ target }) => setSellerName(target.value) }
+          value={ sellerName }
+        >
+          <option value="Fulana Pereira">Fulana Pereira</option>
+        </Select>
+        <Input
+          onChange={ ({ target }) => setDeliveryNumber(target.value) }
+          value={ deliveryNumber }
+          type="number"
+          placeholder="Número"
+        />
+      </div>
+      <div>
+        <button onClick={ () => handleSale() } type="button">Finalizar compra</button>
+      </div>
     </Container>
   );
 };

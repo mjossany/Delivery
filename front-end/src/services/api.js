@@ -3,23 +3,20 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3001/';
 
 const getAuth = () => {
-  const token = localStorage.getItem('token');
-  return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+  const auth = JSON.parse(localStorage.getItem('token'));
+  if (!auth) return '';
+  return auth.token || {};
 };
 
 const api = axios.create({
   baseURL: API_URL,
 });
 
-api.defaults.headers = {
-  Authorization: `Bearer ${getAuth().token}`,
-};
-
 api.interceptors.request.use((config) => {
-  const { token } = getAuth();
+  const token = getAuth();
   const axiosConfig = config;
   if (token) {
-    axiosConfig.headers.Authorization = `Bearer ${token}`;
+    axiosConfig.headers.authorization = `${token}`;
   }
   return axiosConfig;
 });

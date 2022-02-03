@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+import api from '../services/api';
 
 const useCart = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [sellerName, setSellerName] = useState('Fulana Pereira');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
 
   const addToCart = (product) => {
     const productExists = cart.find((p) => p.id === product.id);
@@ -29,7 +33,10 @@ const useCart = () => {
   };
 
   const totalPrice = useCallback(() => {
-    cart.reduce((t, product) => t + product.price * product.quantity, 0);
+    const cartTotal = cart.reduce(
+      (acc, product) => acc + product.price * product.quantity, 0,
+    );
+    setTotal(cartTotal);
   }, [cart]);
 
   const removeProduct = (product) => {
@@ -39,6 +46,27 @@ const useCart = () => {
   useEffect(() => {
     totalPrice();
   }, [cart, totalPrice]);
+
+  const postNewSale = async () => {
+    console.log('to aqui');
+    try {
+      const { data } = await api.post('/customer/checkout', {
+        products: cart,
+        totalPrice: total,
+        sellerName,
+        deliveryAddress,
+        deliveryNumber,
+      });
+      console.log(cart);
+      if (data.id) {
+        return data.id;
+      }
+      return null;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return {
     cart,
     setCart,
@@ -47,6 +75,13 @@ const useCart = () => {
     addToCart,
     removeFromCart,
     removeProduct,
+    postNewSale,
+    setSellerName,
+    setDeliveryAddress,
+    setDeliveryNumber,
+    sellerName,
+    deliveryAddress,
+    deliveryNumber,
   };
 };
 
