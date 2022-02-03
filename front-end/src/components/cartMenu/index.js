@@ -8,14 +8,23 @@ const CartMenu = ({ product }) => {
 
   return (
     <CartMenuContainer>
-      <CartMenuButton onClick={ () => removeFromCart(product) } type="button">
+      <CartMenuButton
+        onClick={ () => removeFromCart(product) }
+        type="button"
+        data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+      >
         -
       </CartMenuButton>
-      <CartMenuQuantity>
-        {cart.find((p) => p.id === product.id)
-          ? cart.find((p) => p.id === product.id).quantity : 0}
-      </CartMenuQuantity>
-      <CartMenuButton onClick={ () => addToCart(product) } type="button">
+      <CartMenuQuantity
+        data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        value={ cart.find((p) => p.id === product.id)
+          ? cart.find((p) => p.id === product.id).quantity : 0 }
+      />
+      <CartMenuButton
+        data-testid={ `customer_products__button-card-add-item-${product.id}` }
+        onClick={ () => addToCart(product) }
+        type="button"
+      >
         +
       </CartMenuButton>
     </CartMenuContainer>
@@ -26,7 +35,7 @@ CartMenu.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     urlImage: PropTypes.string.isRequired,
   }).isRequired,
 };

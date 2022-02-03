@@ -16,7 +16,10 @@ function CustomerProducts() {
       <ProductsContainer>
         {
           products.map((product) => (
-            <ProductOverview key={ product.id } product={ product } />
+            <ProductOverview
+              key={ product.id }
+              product={ product }
+            />
           ))
         }
       </ProductsContainer>

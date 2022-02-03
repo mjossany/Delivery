@@ -11,7 +11,7 @@ export const ProductsContainer = styled.main`
 `;
 
 export const Product = styled.div`
-    width: 250px;
+    width: 200px;
     height: 300px;
     background-color: #fff;
     border-radius: 5px;
