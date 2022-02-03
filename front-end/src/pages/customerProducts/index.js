@@ -9,6 +9,7 @@ import { GoToCartButton, ProductsContainer } from './styles';
 function CustomerProducts() {
   const { products } = useContext(ProductsContext);
   const navigate = useNavigate();
+
   return (
     <Container>
       <NavBar />

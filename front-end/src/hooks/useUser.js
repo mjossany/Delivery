@@ -4,7 +4,7 @@ import api from '../services/api';
 import httpErros from '../utils/httpErros';
 
 const useUser = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(undefined);
   const [errMessage, setErrMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +47,7 @@ const useUser = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setUser({});
+    setUser(undefined);
   };
 
   useEffect(() => {

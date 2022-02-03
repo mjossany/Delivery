@@ -48,7 +48,6 @@ const useCart = () => {
   }, [cart, totalPrice]);
 
   const postNewSale = async () => {
-    console.log('to aqui');
     try {
       const { data } = await api.post('/customer/checkout', {
         products: cart,
@@ -57,7 +56,6 @@ const useCart = () => {
         deliveryAddress,
         deliveryNumber,
       });
-      console.log(cart);
       if (data.id) {
         return data.id;
       }
