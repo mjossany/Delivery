@@ -5,6 +5,7 @@ import CartMenu from '../../../components/cartMenu';
 
 const ProductOverview = ({ product }) => {
   const { name, price, urlImage, id } = product;
+
   return (
     <Product>
       <ProductImage
@@ -19,7 +20,7 @@ const ProductOverview = ({ product }) => {
       <p
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        { price }
+        { String(price).replace('.', ',') }
       </p>
       <CartMenu product={ product } />
     </Product>

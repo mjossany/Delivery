@@ -8,6 +8,17 @@ const useCart = () => {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
 
+  const manualHandleAddToCart = (product, value) => {
+    const productExists = cart.find((p) => p.id === product.id);
+    if (productExists) {
+      setCart(cart.map(
+        (p) => (p.id === product.id ? { ...product, quantity: value } : p),
+      ));
+    } else {
+      setCart([...cart, { ...product, quantity: value }]);
+    }
+  };
+
   const addToCart = (product) => {
     const productExists = cart.find((p) => p.id === product.id);
     if (productExists) {
@@ -80,6 +91,7 @@ const useCart = () => {
     sellerName,
     deliveryAddress,
     deliveryNumber,
+    manualHandleAddToCart,
   };
 };
 

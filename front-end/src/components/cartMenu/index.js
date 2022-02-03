@@ -4,7 +4,12 @@ import { CartContext } from '../../context/cart';
 import { CartMenuButton, CartMenuContainer, CartMenuQuantity } from './styles';
 
 const CartMenu = ({ product }) => {
-  const { addToCart, cart, removeFromCart } = useContext(CartContext);
+  const {
+    addToCart,
+    cart,
+    removeFromCart,
+    manualHandleAddToCart,
+  } = useContext(CartContext);
 
   return (
     <CartMenuContainer>
@@ -17,6 +22,7 @@ const CartMenu = ({ product }) => {
       </CartMenuButton>
       <CartMenuQuantity
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        onChange={ (e) => manualHandleAddToCart(product, e.target.value) }
         value={ cart.find((p) => p.id === product.id)
           ? cart.find((p) => p.id === product.id).quantity : 0 }
       />
@@ -26,7 +32,8 @@ const CartMenu = ({ product }) => {
         type="button"
       >
         +
-      </CartMenuButton>
+      </CartMenuButton
+      >
     </CartMenuContainer>
   );
 };
