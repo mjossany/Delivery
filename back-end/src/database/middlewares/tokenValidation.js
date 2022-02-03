@@ -7,6 +7,7 @@ module.exports = (req, _res, next) => {
   const valideToken = validateToken(token);
   if (!valideToken) return next(INVALID_TOKEN);
   const { dataValues } = valideToken;
+  console.log(dataValues);
   req.user = dataValues;
   return next();
 }
