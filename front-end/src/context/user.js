@@ -7,7 +7,8 @@ export const UserContext = createContext({});
 const UserProvider = ({ children }) => {
   const { handleLogin,
     setEmail, setPassword, email,
-    password, handleRegister, setName, valid, validName, setUser, user } = useUser();
+    password, handleRegister,
+    setName, valid, validName, setUser, user, handleLogout } = useUser();
 
   return (
     <UserContext.Provider
@@ -23,6 +24,7 @@ const UserProvider = ({ children }) => {
         validName,
         setUser,
         user,
+        handleLogout,
       } }
     >
       {children}

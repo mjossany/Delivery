@@ -4,7 +4,7 @@ import api from '../services/api';
 import httpErros from '../utils/httpErros';
 
 const useUser = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(undefined);
   const [errMessage, setErrMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,6 +43,11 @@ const useUser = () => {
         setErrMessage('Algo deu errado, tente novamente mais tarde.');
       }
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(undefined);
   };
 
   useEffect(() => {
@@ -108,6 +113,7 @@ const useUser = () => {
     handleRegister,
     valid,
     validName,
+    handleLogout,
   };
 };
 
