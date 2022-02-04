@@ -9,13 +9,9 @@ import { GoToCartButton, ProductsContainer } from './styles';
 
 function CustomerProducts() {
   const { products } = useContext(ProductsContext);
-  const { total, cart, fetchSellers } = useContext(CartContext);
-  const navigate = useNavigate();
+  const { total, cart } = useContext(CartContext);
 
-  const navigateAndFetchSellers = async () => {
-    await navigate('/customer/checkout');
-    fetchSellers();
-  };
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -31,7 +27,7 @@ function CustomerProducts() {
         }
       </ProductsContainer>
       <GoToCartButton
-        onClick={ () => navigateAndFetchSellers() }
+        onClick={ () => navigate('/customer/checkout') }
         data-testid="customer_products__button-cart"
         disabled={ cart.length === 0 }
       >
@@ -39,7 +35,7 @@ function CustomerProducts() {
         <p
           data-testid="customer_products__checkout-bottom-value"
         >
-          { String(total).replace('.', ',') }
+          { String(total.toFixed(2).replace('.', ',')) }
         </p>
       </GoToCartButton>
     </Container>

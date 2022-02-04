@@ -2,14 +2,8 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../context/user';
 
 const Signup = () => {
-  const { setName, handleRegister, handleLogin,
+  const { setName, handleRegister,
     setEmail, setPassword, valid, validName } = useContext(UserContext);
-
-  const registerAndNavigate = async () => {
-    await handleRegister();
-    handleLogin();
-  };
-
   return (
     <div>
       <div>
@@ -46,7 +40,7 @@ const Signup = () => {
         <button
           type="button"
           data-testid="common_register__button-register"
-          onClick={ () => registerAndNavigate() }
+          onClick={ () => handleRegister() }
           disabled={ !valid || !validName }
         >
           Cadastrar

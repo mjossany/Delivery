@@ -30,13 +30,18 @@ const Checkout = () => {
     setDeliveryAddress,
     setDeliveryNumber,
     setSellerName,
+    sellerName,
     sellers,
   } = useContext(CartContext);
   const navigate = useNavigate();
   const handleSale = async () => {
-    const redirect = await postNewSale();
-    if (redirect) {
-      navigate(`/customer/orders/${redirect}`);
+    try {
+      const redirect = await postNewSale();
+      if (redirect) {
+        navigate(`/customer/orders/${redirect}`);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
   console.log(sellers);
@@ -90,7 +95,7 @@ const Checkout = () => {
         />
         <Select
           onChange={ ({ target }) => setSellerName(target.value) }
-          value={ sellers[0].name }
+          value={ sellerName }
         >
           {
             sellers.map((seller) => (
