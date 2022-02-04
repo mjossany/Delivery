@@ -21,7 +21,6 @@ const useUser = () => {
       setUser(data);
     } catch (err) {
       if (err.response) {
-        console.log(err.response.data);
         setErrMessage(err.response.data.message);
       } else {
         setErrMessage('Algo deu errado, tente novamente mais tarde.');
@@ -37,7 +36,6 @@ const useUser = () => {
       console.log(data);
     } catch (err) {
       if (err.response) {
-        console.log(err.response.data);
         setErrMessage(err.response.data.message);
       } else {
         setErrMessage('Algo deu errado, tente novamente mais tarde.');

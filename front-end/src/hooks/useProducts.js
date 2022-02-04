@@ -6,9 +6,13 @@ const useProducts = (user) => {
   const [cart, setCart] = useState([]);
 
   const fetchProducts = useCallback(async () => {
-    if (!user) return;
-    const { data } = await api.get('customer/products');
-    setProducts(data);
+    try {
+      if (!user) return;
+      const { data } = await api.get('customer/products');
+      setProducts(data);
+    } catch (err) {
+      console.log(err);
+    }
   }, [user]);
 
   useEffect(() => {
