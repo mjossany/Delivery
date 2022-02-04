@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Input, Select } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/cart';
 import { Container } from '../../styles';
@@ -22,7 +21,9 @@ const useStyles = makeStyles({
 
 const Checkout = () => {
   const classes = useStyles();
-  const { cart, removeProduct,
+  const {
+    cart,
+    removeProduct,
     total,
     postNewSale,
     deliveryAddress,
@@ -62,15 +63,56 @@ const Checkout = () => {
           </TableHead>
           <TableBody>
             {
-              cart.map((product) => (
+              cart.map((product, index) => (
                 <TableRow key={ product.id }>
-                  <TableCell align="right">{product.id}</TableCell>
-                  <TableCell align="right">{product.name}</TableCell>
-                  <TableCell align="right">{product.quantity}</TableCell>
-                  <TableCell align="right">{product.price}</TableCell>
-                  <TableCell align="right">{product.quantity * product.price}</TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-item-number-${index}`
+                    }
+                  >
+                    {product.id}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-name-${index}`
+                    }
+                  >
+                    {product.name}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-quantity-${index}`
+                    }
+                  >
+                    {product.quantity}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-unit-price-${index}`
+                    }
+                  >
+                    {product.price}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-sub-total-${index}`
+                    }
+                  >
+                    {product.quantity * product.price}
+                  </TableCell>
                   <TableCell align="right">
-                    <button type="button" onClick={ () => removeProduct(product) }>
+                    <button
+                      type="button"
+                      onClick={ () => removeProduct(product) }
+                      data-testid={
+                        `customer_checkout__element-order-table-remove-${index}`
+                      }
+                    >
                       Remover
                     </button>
                   </TableCell>
@@ -80,22 +122,26 @@ const Checkout = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
+      <div
+        data-testid="customer_checkout__element-order-total-price"
+      >
         total:
         {' '}
         {total}
       </div>
       <div>
         <h1>Detalhes e endereço para entrega</h1>
-        <Input
+        <input
           onChange={ ({ target }) => setDeliveryAddress(target.value) }
           value={ deliveryAddress }
           type="text"
           placeholder="Nome"
+          data-testid="customer_checkout__input-address"
         />
-        <Select
+        <select
           onChange={ ({ target }) => setSellerName(target.value) }
           value={ sellerName }
+          data-testid="customer_checkout__select-seller"
         >
           {
             sellers.map((seller) => (
@@ -108,16 +154,23 @@ const Checkout = () => {
             ))
           }
           <option value="Fulana Pereira">Fulana Pereira</option>
-        </Select>
-        <Input
+        </select>
+        <input
           onChange={ ({ target }) => setDeliveryNumber(target.value) }
           value={ deliveryNumber }
           type="number"
           placeholder="Número"
+          data-testid="customer_checkout__input-addressNumber"
         />
       </div>
       <div>
-        <button onClick={ () => handleSale() } type="button">Finalizar compra</button>
+        <button
+          onClick={ () => handleSale() }
+          type="button"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          Finalizar compra
+        </button>
       </div>
     </Container>
   );
