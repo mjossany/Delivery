@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-// import axios from 'axios';
 import api from '../services/api';
 
 const useCart = () => {
@@ -72,15 +71,8 @@ const useCart = () => {
     }
   };
 
-  // const getAuth = () => {
-  //   const auth = JSON.parse(localStorage.getItem('user'));
-  //   if (!auth) return '';
-  //   return auth.token || {};
-  // };
-
   const postNewSale = async () => {
     try {
-      // const authorization = getAuth();
       const { data } = await api.post('/customer/checkout', {
         products: cart.map(({ id, ...product }) => ({ ...product, productId: id })),
         totalPrice: total,
