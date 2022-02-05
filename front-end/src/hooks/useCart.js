@@ -10,13 +10,17 @@ const useCart = () => {
   const [deliveryNumber, setDeliveryNumber] = useState('');
 
   const manualHandleAddToCart = (product, value) => {
+    const numValue = +value;
     const productExists = cart.find((p) => p.id === product.id);
+    if (productExists && numValue <= 0) {
+      return setCart(cart.filter((p) => p.id !== product.id));
+    }
     if (productExists) {
       setCart(cart.map(
-        (p) => (p.id === product.id ? { ...product, quantity: value } : p),
+        (p) => (p.id === product.id ? { ...product, quantity: numValue } : p),
       ));
     } else {
-      setCart([...cart, { ...product, quantity: value }]);
+      setCart([...cart, { ...product, quantity: numValue }]);
     }
   };
 
@@ -29,19 +33,21 @@ const useCart = () => {
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
-    console.log(cart);
+  };
+
+  const removeProduct = (product) => {
+    setCart(cart.filter((p) => p.id !== product.id));
   };
 
   const removeFromCart = (product) => {
     const productExists = cart.find((p) => p.id === product.id);
-    if (productExists && productExists.quantity > 0) {
-      setCart(cart.map(
-        (p) => (p.id === product.id ? { ...product, quantity: p.quantity - 1 } : p),
-      ));
-    } else {
-      setCart(cart.filter((p) => p.id !== product.id));
+    if (productExists) {
+      return productExists.quantity === 1
+        ? setCart(cart.filter((p) => p.id !== product.id))
+        : setCart(cart.map((p) => (p.id === product.id
+          ? { ...product, quantity: p.quantity - 1 }
+          : p)));
     }
-    console.log(cart);
   };
 
   const totalPrice = useCallback(() => {
@@ -51,12 +57,9 @@ const useCart = () => {
     setTotal(cartTotal);
   }, [cart]);
 
-  const removeProduct = (product) => {
-    setCart(cart.filter((p) => p.id !== product.id));
-  };
-
   useEffect(() => {
     totalPrice();
+    console.log(cart);
   }, [cart, totalPrice]);
 
   const fetchSellers = async () => {
