@@ -1,9 +1,23 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/user';
 
 const Signup = () => {
-  const { setName, handleRegister,
+  const { setName, handleRegister, handleLogin,
     setEmail, setPassword, valid, validName } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const handleRegisterAndNavigate = async () => {
+    try {
+      await handleRegister();
+      await handleLogin();
+      navigate('/customer/products');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -40,7 +54,7 @@ const Signup = () => {
         <button
           type="button"
           data-testid="common_register__button-register"
-          onClick={ () => handleRegister() }
+          onClick={ () => handleRegisterAndNavigate() }
           disabled={ !valid || !validName }
         >
           Cadastrar

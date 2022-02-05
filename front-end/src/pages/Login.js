@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 
 function Login() {
   const { handleLogin,
     email, password, setEmail, setPassword, valid } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   return (
     <form>

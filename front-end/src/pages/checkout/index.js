@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-depth */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Input, Select } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/cart';
 import { Container } from '../../styles';
@@ -22,16 +21,18 @@ const useStyles = makeStyles({
 
 const Checkout = () => {
   const classes = useStyles();
-  const { cart, removeProduct,
+  const {
+    cart,
+    removeProduct,
     total,
     postNewSale,
     deliveryAddress,
     deliveryNumber,
     setDeliveryAddress,
     setDeliveryNumber,
-    setSellerName,
-    sellerName,
+    setSellerId,
     sellers,
+    fetchSellers,
   } = useContext(CartContext);
   const navigate = useNavigate();
   const handleSale = async () => {
@@ -44,7 +45,12 @@ const Checkout = () => {
       console.log(err);
     }
   };
-  console.log(sellers);
+
+  useEffect(() => {
+    if (sellers.length) return;
+    fetchSellers();
+  }, [fetchSellers, sellers]);
+
   return (
     <Container>
       <NavBar />
@@ -62,15 +68,60 @@ const Checkout = () => {
           </TableHead>
           <TableBody>
             {
-              cart.map((product) => (
+              cart.map((product, index) => (
                 <TableRow key={ product.id }>
-                  <TableCell align="right">{product.id}</TableCell>
-                  <TableCell align="right">{product.name}</TableCell>
-                  <TableCell align="right">{product.quantity}</TableCell>
-                  <TableCell align="right">{product.price}</TableCell>
-                  <TableCell align="right">{product.quantity * product.price}</TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-item-number-${index}`
+                    }
+                  >
+                    {index + 1}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-name-${index}`
+                    }
+                  >
+                    {product.name}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-quantity-${index}`
+                    }
+                  >
+                    {product.quantity}
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-unit-price-${index}`
+                    }
+                  >
+                    { String((+product.price).toFixed(2).replace('.', ',')) }
+                  </TableCell>
+                  <TableCell
+                    align="right"
+                    data-testid={
+                      `customer_checkout__element-order-table-sub-total-${index}`
+                    }
+                  >
+                    {
+                      String((+product.quantity * +product.price)
+                        .toFixed(2)
+                        .replace('.', ','))
+                    }
+                  </TableCell>
                   <TableCell align="right">
-                    <button type="button" onClick={ () => removeProduct(product) }>
+                    <button
+                      type="button"
+                      onClick={ () => removeProduct(product) }
+                      data-testid={
+                        `customer_checkout__element-order-table-remove-${index}`
+                      }
+                    >
                       Remover
                     </button>
                   </TableCell>
@@ -80,44 +131,53 @@ const Checkout = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div>
+      <div
+        data-testid="customer_checkout__element-order-total-price"
+      >
         total:
         {' '}
-        {total}
+        { String(total.toFixed(2).replace('.', ',')) }
       </div>
       <div>
         <h1>Detalhes e endereço para entrega</h1>
-        <Input
+        <input
           onChange={ ({ target }) => setDeliveryAddress(target.value) }
           value={ deliveryAddress }
           type="text"
           placeholder="Nome"
+          data-testid="customer_checkout__input-address"
         />
-        <Select
-          onChange={ ({ target }) => setSellerName(target.value) }
-          value={ sellerName }
+        <select
+          onChange={ ({ target }) => setSellerId(target.value) }
+          data-testid="customer_checkout__select-seller"
         >
           {
             sellers.map((seller) => (
               <option
                 key={ seller.id }
-                value={ seller.name }
+                value={ seller.id }
               >
                 {seller.name}
               </option>
             ))
           }
-          <option value="Fulana Pereira">Fulana Pereira</option>
-        </Select>
-        <Input
+        </select>
+        <input
           onChange={ ({ target }) => setDeliveryNumber(target.value) }
           value={ deliveryNumber }
           type="number"
           placeholder="Número"
+          data-testid="customer_checkout__input-addressNumber"
         />
       </div>
       <div>
-        <button onClick={ () => handleSale() } type="button">Finalizar compra</button>
+        <button
+          onClick={ () => handleSale() }
+          type="button"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          Finalizar compra
+        </button>
       </div>
     </Container>
   );

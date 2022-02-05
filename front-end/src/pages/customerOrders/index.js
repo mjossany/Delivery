@@ -16,7 +16,6 @@ const CustomerOrders = () => {
 
   return (
     <div>
-      {console.log(order)}
       <h1>Detalhes do pedido</h1>
       <div style={ { display: 'flex' } }>
         {console.log(order)}
