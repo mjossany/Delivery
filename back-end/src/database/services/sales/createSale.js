@@ -7,8 +7,8 @@ module.exports = async (saleInfos) => {
   const sellerId = await verifyUserSeller(userId, sellerName);
   if (!sellerId) throw SAME_USER;
   const sale = await Sale.create({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber });
-  products.forEach(async ({ productId, quantity }) => {
-    await sale.addProducts(productId, { through: { quantity }});
+  products.forEach(async ({ id, quantity }) => {
+    await sale.addProducts(id, { through: { quantity }});
   });
   return sale;
 };

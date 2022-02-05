@@ -73,6 +73,7 @@ const useCart = () => {
 
   const postNewSale = async () => {
     try {
+      console.log(cart);
       const { data } = await api.post('/customer/checkout', {
         products: cart,
         totalPrice: total,

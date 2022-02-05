@@ -45,7 +45,6 @@ const Checkout = () => {
       console.log(err);
     }
   };
-  console.log(sellers);
   return (
     <Container>
       <NavBar />
@@ -71,7 +70,7 @@ const Checkout = () => {
                       `customer_checkout__element-order-table-item-number-${index}`
                     }
                   >
-                    {product.id}
+                    {index + 1}
                   </TableCell>
                   <TableCell
                     align="right"
@@ -95,7 +94,7 @@ const Checkout = () => {
                       `customer_checkout__element-order-table-unit-price-${index}`
                     }
                   >
-                    {product.price}
+                    { String((+product.price).toFixed(2).replace('.', ',')) }
                   </TableCell>
                   <TableCell
                     align="right"
@@ -103,7 +102,11 @@ const Checkout = () => {
                       `customer_checkout__element-order-table-sub-total-${index}`
                     }
                   >
-                    {product.quantity * product.price}
+                    {
+                      String((+product.quantity * +product.price)
+                        .toFixed(2)
+                        .replace('.', ','))
+                    }
                   </TableCell>
                   <TableCell align="right">
                     <button
@@ -127,7 +130,7 @@ const Checkout = () => {
       >
         total:
         {' '}
-        {total}
+        { String(total.toFixed(2).replace('.', ',')) }
       </div>
       <div>
         <h1>Detalhes e endereço para entrega</h1>
