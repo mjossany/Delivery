@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
+// import axios from 'axios';
 import api from '../services/api';
 
 const useCart = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const [sellerName, setSellerName] = useState('Fulana Pereira');
+  const [sellerId, setSellerId] = useState(2);
   const [sellers, setSellers] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
@@ -71,13 +72,19 @@ const useCart = () => {
     }
   };
 
+  // const getAuth = () => {
+  //   const auth = JSON.parse(localStorage.getItem('user'));
+  //   if (!auth) return '';
+  //   return auth.token || {};
+  // };
+
   const postNewSale = async () => {
     try {
-      console.log(cart);
+      // const authorization = getAuth();
       const { data } = await api.post('/customer/checkout', {
-        products: cart,
+        products: cart.map(({ id, ...product }) => ({ ...product, productId: id })),
         totalPrice: total,
-        sellerName,
+        sellerId,
         deliveryAddress,
         deliveryNumber,
       });
@@ -99,10 +106,10 @@ const useCart = () => {
     removeFromCart,
     removeProduct,
     postNewSale,
-    setSellerName,
+    setSellerId,
     setDeliveryAddress,
     setDeliveryNumber,
-    sellerName,
+    sellerId,
     deliveryAddress,
     deliveryNumber,
     manualHandleAddToCart,

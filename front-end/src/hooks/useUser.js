@@ -17,6 +17,7 @@ const useUser = () => {
       const { data } = await api.post('/login', {
         email, password,
       });
+      console.log(data);
       localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
     } catch (err) {

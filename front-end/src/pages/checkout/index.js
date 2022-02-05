@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-depth */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -30,9 +30,9 @@ const Checkout = () => {
     deliveryNumber,
     setDeliveryAddress,
     setDeliveryNumber,
-    setSellerName,
-    sellerName,
+    setSellerId,
     sellers,
+    fetchSellers,
   } = useContext(CartContext);
   const navigate = useNavigate();
   const handleSale = async () => {
@@ -45,6 +45,12 @@ const Checkout = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (sellers.length) return;
+    fetchSellers();
+  }, [fetchSellers, sellers]);
+
   return (
     <Container>
       <NavBar />
@@ -142,21 +148,19 @@ const Checkout = () => {
           data-testid="customer_checkout__input-address"
         />
         <select
-          onChange={ ({ target }) => setSellerName(target.value) }
-          value={ sellerName }
+          onChange={ ({ target }) => setSellerId(target.value) }
           data-testid="customer_checkout__select-seller"
         >
           {
             sellers.map((seller) => (
               <option
                 key={ seller.id }
-                value={ seller.name }
+                value={ seller.id }
               >
                 {seller.name}
               </option>
             ))
           }
-          <option value="Fulana Pereira">Fulana Pereira</option>
         </select>
         <input
           onChange={ ({ target }) => setDeliveryNumber(target.value) }

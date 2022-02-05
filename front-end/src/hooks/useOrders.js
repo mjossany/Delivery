@@ -8,7 +8,6 @@ const useOrders = () => {
   const getOrderById = useCallback(async (id) => {
     try {
       const { data } = await api.get(`/customer/orders/${id}`);
-      console.log(data);
       setOrder(data.orderDetails);
     } catch (err) {
       console.log(err);
