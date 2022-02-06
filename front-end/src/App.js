@@ -12,6 +12,7 @@ import AllCustomerOrders from './pages/allCustomerOrders';
 
 function App() {
   const { user } = useContext(UserContext);
+  console.log(user);
 
   return (
     <BrowserRouter>

@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { UserContext } from '../../context/user';
 import { AllOrdersContainer } from './styles';
 
 const AllCustomerOrders = () => {
-  const {} = useOrders();
+  const { user } = useContext(UserContext);
+  const { customerOrders, getAllCustomerOrders } = useOrders();
 
   useEffect(() => {
-
+    getAllCustomerOrders();
+    console.log(user, customerOrders);
   });
 
   return (

@@ -3,7 +3,7 @@ const getAllCustomerOrders = require('../../../services/sales/getAllCustomerOrde
 
 module.exports = async (req, res, next) => {
   try {
-    const { id: customerId } = req.body
+    const { id: customerId } = req.user;
     const clientOrders = await getAllCustomerOrders(customerId);
     res.status(OK).json(clientOrders);
   } catch (err) {

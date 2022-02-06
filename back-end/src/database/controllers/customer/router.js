@@ -11,7 +11,7 @@ const router = express.Router({ mergeParams: true });
 router.get('/products', getAllProducts);
 router.post('/checkout', tokenValidation, createSale);
 router.get('/checkout/sellers', getAllSellers);
-router.get('/orders', getAllCustomerOrders);
+router.get('/orders', tokenValidation, getAllCustomerOrders)
 router.get('/orders/:idVenda', getOrderDetails);
 
 module.exports = router;

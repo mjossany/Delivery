@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import api from '../services/api';
 
 const useOrders = () => {
-  const [orders, setOrders] = useState([]);
+  const [customerOrders, setCustomerOrders] = useState([]);
   const [order, setOrder] = useState(null);
 
   const getOrderById = useCallback(async (id) => {
@@ -14,12 +14,24 @@ const useOrders = () => {
     }
   }, []);
 
+  const getAllCustomerOrders = useCallback(async (userId) => {
+    try {
+      const { data } = await api.get('/customer/orders', { userId });
+      console.log(data);
+      setCustomerOrders(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return {
     getOrderById,
     orders,
     setOrders,
     order,
     setOrder,
+    customerOrders,
+    getAllCustomerOrders,
   };
 };
 
