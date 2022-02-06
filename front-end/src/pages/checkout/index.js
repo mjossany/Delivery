@@ -4,10 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/cart';
 import { Container } from '../../styles';
@@ -54,83 +52,81 @@ const Checkout = () => {
   return (
     <Container>
       <NavBar />
-      <TableContainer component={ Paper }>
-        <Table className={ classes.table } aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">Item</TableCell>
-              <TableCell align="right">Descrição</TableCell>
-              <TableCell align="right">Quantidade</TableCell>
-              <TableCell align="right">Valor Unitário</TableCell>
-              <TableCell align="right">Sub-total</TableCell>
-              <TableCell align="right">Remove item</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-              cart.map((product, index) => (
-                <TableRow key={ product.id }>
-                  <TableCell
-                    align="right"
+      <Table className={ classes.table } aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Item</TableCell>
+            <TableCell align="right">Descrição</TableCell>
+            <TableCell align="right">Quantidade</TableCell>
+            <TableCell align="right">Valor Unitário</TableCell>
+            <TableCell align="right">Sub-total</TableCell>
+            <TableCell align="right">Remove item</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            cart.map((product, index) => (
+              <TableRow key={ product.id }>
+                <TableCell
+                  align="right"
+                  data-testid={
+                    `customer_checkout__element-order-table-item-number-${index}`
+                  }
+                >
+                  {index + 1}
+                </TableCell>
+                <TableCell
+                  align="right"
+                  data-testid={
+                    `customer_checkout__element-order-table-name-${index}`
+                  }
+                >
+                  {product.name}
+                </TableCell>
+                <TableCell
+                  align="right"
+                  data-testid={
+                    `customer_checkout__element-order-table-quantity-${index}`
+                  }
+                >
+                  {product.quantity}
+                </TableCell>
+                <TableCell
+                  align="right"
+                  data-testid={
+                    `customer_checkout__element-order-table-unit-price-${index}`
+                  }
+                >
+                  { String((+product.price).toFixed(2).replace('.', ',')) }
+                </TableCell>
+                <TableCell
+                  align="right"
+                  data-testid={
+                    `customer_checkout__element-order-table-sub-total-${index}`
+                  }
+                >
+                  {
+                    String((+product.quantity * +product.price)
+                      .toFixed(2)
+                      .replace('.', ','))
+                  }
+                </TableCell>
+                <TableCell align="right">
+                  <button
+                    type="button"
+                    onClick={ () => removeProduct(product) }
                     data-testid={
-                      `customer_checkout__element-order-table-item-number-${index}`
+                      `customer_checkout__element-order-table-remove-${index}`
                     }
                   >
-                    {index + 1}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    data-testid={
-                      `customer_checkout__element-order-table-name-${index}`
-                    }
-                  >
-                    {product.name}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    data-testid={
-                      `customer_checkout__element-order-table-quantity-${index}`
-                    }
-                  >
-                    {product.quantity}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    data-testid={
-                      `customer_checkout__element-order-table-unit-price-${index}`
-                    }
-                  >
-                    { String((+product.price).toFixed(2).replace('.', ',')) }
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    data-testid={
-                      `customer_checkout__element-order-table-sub-total-${index}`
-                    }
-                  >
-                    {
-                      String((+product.quantity * +product.price)
-                        .toFixed(2)
-                        .replace('.', ','))
-                    }
-                  </TableCell>
-                  <TableCell align="right">
-                    <button
-                      type="button"
-                      onClick={ () => removeProduct(product) }
-                      data-testid={
-                        `customer_checkout__element-order-table-remove-${index}`
-                      }
-                    >
-                      Remover
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ))
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
+                    Remover
+                  </button>
+                </TableCell>
+              </TableRow>
+            ))
+          }
+        </TableBody>
+      </Table>
       <div
         data-testid="customer_checkout__element-order-total-price"
       >
