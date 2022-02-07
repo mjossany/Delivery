@@ -1,12 +1,18 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
+import useRedirect from '../hooks/useRedirect';
 
 function Login() {
-  const { handleLogin,
-    email, password, setEmail, setPassword, valid } = useContext(UserContext);
+  const {
+    handleLogin,
+    email,
+    password,
+    setEmail,
+    setPassword,
+    valid,
+  } = useContext(UserContext);
 
-  const navigate = useNavigate();
+  useRedirect();
 
   return (
     <form>

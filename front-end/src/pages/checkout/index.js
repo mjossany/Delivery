@@ -45,6 +45,7 @@ const Checkout = () => {
   };
 
   useEffect(() => {
+    console.log('loop8');
     if (sellers.length) return;
     fetchSellers();
   }, [fetchSellers, sellers]);

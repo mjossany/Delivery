@@ -17,6 +17,7 @@ const UserProvider = ({ children }) => {
     setUser,
     user,
     handleLogout,
+    logged,
   } = useUser();
 
   return (
@@ -34,6 +35,7 @@ const UserProvider = ({ children }) => {
         setUser,
         user,
         handleLogout,
+        logged,
       } }
     >
       {children}

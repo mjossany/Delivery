@@ -7,6 +7,7 @@ const CustomerOrders = () => {
   const { getOrderById, order } = useOrders();
 
   useEffect(() => {
+    console.log('loop9');
     getOrderById(id);
   }, [getOrderById, id]);
 

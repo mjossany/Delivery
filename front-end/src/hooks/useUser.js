@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import api from '../services/api';
 import httpErros from '../utils/httpErros';
+import getLocalStorage from '../utils/getLocalStorage';
 
 const useUser = () => {
-  const [user, setUser] = useState(undefined);
+  const lsUser = getLocalStorage();
+  const [user, setUser] = useState(lsUser);
   const [errMessage, setErrMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +19,6 @@ const useUser = () => {
       const { data } = await api.post('/login', {
         email, password,
       });
-      console.log(data);
       localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
     } catch (err) {

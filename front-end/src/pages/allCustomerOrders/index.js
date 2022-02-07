@@ -12,6 +12,7 @@ import {
   OrderStatusText,
 } from './styles';
 import useOrders from '../../hooks/useOrders';
+import NavBar from '../../components/navbar';
 
 const mask = '0000';
 const AllCustomerOrders = () => {
@@ -20,6 +21,7 @@ const AllCustomerOrders = () => {
 
   return (
     <AllOrdersContainer>
+      <NavBar />
       {
         customerOrders.map((order) => (
           <OrderContainer key={ order.id }>
@@ -32,15 +34,21 @@ const AllCustomerOrders = () => {
               </IdContainerOrderNumber>
             </IdContainer>
             <OrderStatusContainer>
-              <OrderStatusText>
+              <OrderStatusText
+                data-testid={ `customer_orders__element-delivery-status-${order.id}` }
+              >
                 { order.status }
               </OrderStatusText>
             </OrderStatusContainer>
             <OrderDateContainer>
-              <OrderDateDate>
+              <OrderDateDate
+                data-testid={ `customer_orders__element-order-date-${order.id}` }
+              >
                 { formatData(order.saleDate) }
               </OrderDateDate>
-              <OrderDatePrice>
+              <OrderDatePrice
+                data-testid={ `customer_orders__element-card-price-${order.id}` }
+              >
                 { `R$ ${String((+order.totalPrice).toFixed(2).replace('.', ','))}` }
               </OrderDatePrice>
             </OrderDateContainer>
