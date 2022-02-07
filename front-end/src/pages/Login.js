@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import useRedirect from '../hooks/useRedirect';
 
@@ -13,6 +14,8 @@ function Login() {
   } = useContext(UserContext);
 
   useRedirect();
+
+  const navigate = useNavigate();
 
   return (
     <form>
