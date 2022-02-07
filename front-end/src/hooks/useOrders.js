@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import api from '../services/api';
 
 const useOrders = () => {
@@ -14,20 +14,21 @@ const useOrders = () => {
     }
   }, []);
 
-  const getAllCustomerOrders = useCallback(async (userId) => {
+  const getAllCustomerOrders = useCallback(async () => {
     try {
-      const { data } = await api.get('/customer/orders', { userId });
-      console.log(data);
+      const { data } = await api.get('/customer/orders');
       setCustomerOrders(data);
     } catch (err) {
       console.log(err);
     }
   }, []);
 
+  useEffect(() => {
+    getAllCustomerOrders();
+  }, [getAllCustomerOrders]);
+
   return {
     getOrderById,
-    orders,
-    setOrders,
     order,
     setOrder,
     customerOrders,
