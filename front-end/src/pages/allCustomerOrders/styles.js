@@ -59,8 +59,10 @@ export const OrderDateContainer = styled.div`
 
 export const OrderDateDate = styled.p` 
   display: flex;
+  font-size: 0.6rem;
 `;
 
 export const OrderDatePrice = styled.p`
   display: flex;
+  font-size: 0.6rem;
 `;

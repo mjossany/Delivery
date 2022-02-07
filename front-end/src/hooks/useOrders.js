@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import moment from 'moment';
 import api from '../services/api';
 
 const useOrders = () => {
@@ -25,6 +26,8 @@ const useOrders = () => {
 
   const generateOrderNumber = (base, id) => (base + id).slice(-(base.length));
 
+  const formatData = (date) => moment(date).format('DD/MM/YYYY');
+
   useEffect(() => {
     getAllCustomerOrders();
   }, [getAllCustomerOrders]);
@@ -36,6 +39,7 @@ const useOrders = () => {
     customerOrders,
     getAllCustomerOrders,
     generateOrderNumber,
+    formatData,
   };
 };
 

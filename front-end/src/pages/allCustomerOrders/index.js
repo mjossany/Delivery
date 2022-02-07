@@ -15,7 +15,7 @@ import useOrders from '../../hooks/useOrders';
 
 const mask = '0000';
 const AllCustomerOrders = () => {
-  const { customerOrders, generateOrderNumber } = useOrders();
+  const { customerOrders, generateOrderNumber, formatData } = useOrders();
   console.log(customerOrders);
 
   return (
@@ -38,10 +38,10 @@ const AllCustomerOrders = () => {
             </OrderStatusContainer>
             <OrderDateContainer>
               <OrderDateDate>
-                Oi
+                { formatData(order.saleDate) }
               </OrderDateDate>
               <OrderDatePrice>
-                Oi
+                { `R$ ${String((+order.totalPrice).toFixed(2).replace('.', ','))}` }
               </OrderDatePrice>
             </OrderDateContainer>
           </OrderContainer>
