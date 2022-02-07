@@ -23,6 +23,8 @@ const useOrders = () => {
     }
   }, []);
 
+  const generateOrderNumber = (base, id) => (base + id).slice(-(base.length));
+
   useEffect(() => {
     getAllCustomerOrders();
   }, [getAllCustomerOrders]);
@@ -33,6 +35,7 @@ const useOrders = () => {
     setOrder,
     customerOrders,
     getAllCustomerOrders,
+    generateOrderNumber,
   };
 };
 
