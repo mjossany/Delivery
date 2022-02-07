@@ -22,7 +22,9 @@ const CartMenu = ({ product }) => {
       </CartMenuButton>
       <CartMenuQuantity
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        onChange={ (e) => manualHandleAddToCart(product, e.target.value) }
+        onChange={ (e) => manualHandleAddToCart(
+          product, e.target.value,
+        ) }
         value={ cart.find((p) => p.id === product.id)
           ? cart.find((p) => p.id === product.id).quantity : 0 }
       />

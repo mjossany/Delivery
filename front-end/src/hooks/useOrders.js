@@ -1,8 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import moment from 'moment';
 import api from '../services/api';
 
 const useOrders = () => {
-  const [orders, setOrders] = useState([]);
+  const [customerOrders, setCustomerOrders] = useState([]);
   const [order, setOrder] = useState(null);
 
   const getOrderById = useCallback(async (id) => {
@@ -14,12 +15,31 @@ const useOrders = () => {
     }
   }, []);
 
+  const getAllCustomerOrders = useCallback(async () => {
+    try {
+      const { data } = await api.get('/customer/orders');
+      setCustomerOrders(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const generateOrderNumber = (base, id) => (base + id).slice(-(base.length));
+
+  const formatData = (date) => moment(date).format('DD/MM/YYYY');
+
+  useEffect(() => {
+    getAllCustomerOrders();
+  }, [getAllCustomerOrders]);
+
   return {
     getOrderById,
-    orders,
-    setOrders,
     order,
     setOrder,
+    customerOrders,
+    getAllCustomerOrders,
+    generateOrderNumber,
+    formatData,
   };
 };
 

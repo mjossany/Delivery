@@ -59,7 +59,6 @@ const useCart = () => {
 
   useEffect(() => {
     totalPrice();
-    console.log(cart);
   }, [cart, totalPrice]);
 
   const fetchSellers = async () => {
