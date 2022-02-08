@@ -4,6 +4,7 @@ import { UserContext } from '../context/user';
 
 const useRedirect = () => {
   const { user } = useContext(UserContext);
+  console.log(user);
   const navigate = useNavigate();
   useEffect(() => {
     if (!user) return null;
