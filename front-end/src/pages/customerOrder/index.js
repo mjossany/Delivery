@@ -35,6 +35,7 @@ const CustomerOrders = () => {
 
   const headersArray = ['Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total'];
   const mask = '0000';
+  const dSId = 'customer_order_details__element-order-details-label-delivery-status';
 
   return (
     <OrderDetailsContainer>
@@ -58,14 +59,13 @@ const CustomerOrders = () => {
             {moment(order.saleDate).format('DD/MM/YYYY')}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderSubContainers
-            data-testid="
-              customer_order_details__element-order-details-label-delivery-status
-            "
+            data-testid={ dSId }
           >
             {order.status}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderButton
             data-testid="customer_order_details__button-delivery-check"
+            disabled
           >
             Marcar como entregue
           </OrderDetailsBoardHeaderButton>
