@@ -9,15 +9,25 @@ import Checkout from './pages/checkout';
 import CustomerOrder from './pages/customerOrder';
 import { UserContext } from './context/user';
 import AllCustomerOrders from './pages/allCustomerOrders';
+import AllSellerOrders from './pages/allSellerOrders';
 
 function App() {
   const { user } = useContext(UserContext);
+  console.log(user);
 
   return (
     <BrowserRouter>
       <Routes>
         {
-          user && (
+          (user && user.role === 'seller') && (
+            <>
+              <Route path="/seller/orders" element={ <AllSellerOrders /> } />
+              <Route path="/*" element={ <Navigate to="/seller/orders" /> } />
+            </>
+          )
+        }
+        {
+          (user && user.role === 'customer') && (
             <>
               <Route path="/customer/products" element={ <CustomerProducts /> } />
               <Route path="/customer/orders" element={ <AllCustomerOrders /> } />
