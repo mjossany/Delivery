@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import ConditionalComponent from '../../components/ConditionalComponent';
 import NavBar from '../../components/navbar';
-import useOrders from '../../hooks/useOrders';
 import {
   OrderDetailsBoard,
   OrderDetailsBoardHeader,
@@ -19,19 +18,22 @@ import {
   OrderDetailsBoardTableHeader,
   OrderDetailsBoardTotalPrice,
 } from './styles';
+import { OrdersContext } from '../../context/orders';
 
 const CustomerOrders = () => {
   const { id } = useParams();
+
   const {
     getOrderById,
     order,
     generateOrderNumber,
-  } = useOrders();
-  console.log(order);
+    delivered,
+    sellerOrders,
+  } = useContext(OrdersContext);
 
   useEffect(() => {
     getOrderById(id);
-  }, [getOrderById, id]);
+  }, [getOrderById, id, sellerOrders]);
 
   if (!order) {
     return <h1>Loading</h1>;
@@ -68,8 +70,9 @@ const CustomerOrders = () => {
             {order.status}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderButton
+            onClick={ () => delivered(id) }
             data-testid="customer_order_details__button-delivery-check"
-            disabled
+            disabled={ order.status !== 'Em Trânsito' }
           >
             Marcar como entregue
           </OrderDetailsBoardHeaderButton>

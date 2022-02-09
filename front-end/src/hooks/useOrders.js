@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
 import moment from 'moment';
+import { io } from 'socket.io-client';
 import api from '../services/api';
+
+const socket = io('http://localhost:3001');
 
 const useOrders = () => {
   const [customerOrders, setCustomerOrders] = useState([]);
@@ -50,6 +53,18 @@ const useOrders = () => {
 
   const formatData = (date) => moment(date).format('DD/MM/YYYY');
 
+  socket.on('updateSale', ({ saleId, status }) => {
+    setSellerOrders(sellerOrders.map((sellerOrder) => (
+      sellerOrder.id === saleId ? { ...order, status } : sellerOrder
+    )));
+  });
+
+  const toPreparing = (saleId) => socket.emit('preparando', saleId);
+
+  const inTransit = (saleId) => socket.emit('transito', saleId);
+
+  const delivered = (saleId) => socket.emit('entregue', saleId);
+
   return {
     getOrderById,
     order,
@@ -62,6 +77,9 @@ const useOrders = () => {
     getAllSellerOrders,
     getSaleById,
     saleOrder,
+    toPreparing,
+    inTransit,
+    delivered,
   };
 };
 

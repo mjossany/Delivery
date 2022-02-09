@@ -2,7 +2,6 @@ const { SALE_NOT_FOUND } = require('../../errors');
 const { Sale } = require('../../models');
 
 module.exports = async (customerId) => {
-  console.log(customerId);
   const sales = await Sale.findAll({
     where: { userId: customerId },
   });
