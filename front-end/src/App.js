@@ -7,6 +7,7 @@ import CustomerProducts from './pages/customerProducts';
 import './globalStyles.css';
 import Checkout from './pages/checkout';
 import CustomerOrder from './pages/customerOrder';
+import Admin from './pages/admin';
 import { UserContext } from './context/user';
 import AllCustomerOrders from './pages/allCustomerOrders';
 import AllSellerOrders from './pages/allSellerOrders';
@@ -38,6 +39,9 @@ function App() {
             </>
           )
         }
+        { (user && user.role === 'administrator') && (
+          <Route path="/admin/manage" element={ <Admin /> } />
+        )}
         {
           !user && (
             <>

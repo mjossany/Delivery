@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import moment from 'moment';
-import { io } from 'socket.io-client';
+import { io } from 'socket.io-client/dist/socket.io';
 import api from '../services/api';
 
 const socket = io('http://localhost:3001');
