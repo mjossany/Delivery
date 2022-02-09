@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/navbar';
 import { UserContext } from '../../context/user';
 import useOrders from '../../hooks/useOrders';
@@ -36,6 +37,8 @@ const AllSellerOrders = () => {
     getAllSellerOrders(id);
   }, [getAllSellerOrders, id]);
 
+  const navigate = useNavigate();
+
   return (
     <AllOrdersContainer>
       <NavBar />
@@ -43,6 +46,7 @@ const AllSellerOrders = () => {
         sellerOrders.map((order) => (
           <OrderContainer
             key={ order.id }
+            onClick={ () => navigate(`/seller/orders/${order.id}`) }
           >
             <IdContainer
               data-testid={ `seller_orders__element-order-id-${order.id}` }

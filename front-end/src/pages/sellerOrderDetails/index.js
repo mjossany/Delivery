@@ -1,45 +1,45 @@
 import React, { useEffect } from 'react';
-import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import ConditionalComponent from '../../components/ConditionalComponent';
-import NavBar from '../../components/navbar';
+import moment from 'moment';
 import useOrders from '../../hooks/useOrders';
+import NavBar from '../../components/navbar';
+import ConditionalComponent from '../../components/ConditionalComponent';
 import {
+  OrderDetailsContainer,
   OrderDetailsBoard,
   OrderDetailsBoardHeader,
-  OrderDetailsBoardHeaderButton,
-  OrderDetailsBoardHeaderCell,
   OrderDetailsBoardHeaderSubContainers,
-  OrderDetailsBoardRow,
+  OrderDetailsBoardHeaderButton,
   OrderDetailsBoardTable,
-  OrderDetailsContainer,
+  OrderDetailsBoardTableHeader,
+  OrderDetailsBoardRow,
+  OrderDetailsBoardHeaderCell,
   OrderDetailsBoardTableBody,
   OrderDetailsBoardTableRow,
   OrderDetailsBoardTableCell,
-  OrderDetailsBoardTableHeader,
   OrderDetailsBoardTotalPrice,
-} from './styles';
+} from './style';
 
-const CustomerOrders = () => {
+const SellerOrderDetails = () => {
   const { id } = useParams();
   const {
-    getOrderById,
-    order,
+    saleOrder,
+    getSaleById,
     generateOrderNumber,
   } = useOrders();
-  console.log(order);
 
   useEffect(() => {
-    getOrderById(id);
-  }, [getOrderById, id]);
+    getSaleById(id);
+  }, [getSaleById, id]);
 
-  if (!order) {
+  console.log(saleOrder);
+  if (!saleOrder) {
     return <h1>Loading</h1>;
   }
 
   const headersArray = ['Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total'];
   const mask = '0000';
-  const dSId = 'customer_order_details__element-order-details-label-delivery-status';
+  const saleStatuId = 'seller_order_details__element-order-details-label-delivery-status';
 
   return (
     <OrderDetailsContainer>
@@ -48,30 +48,31 @@ const CustomerOrders = () => {
       <OrderDetailsBoard>
         <OrderDetailsBoardHeader>
           <OrderDetailsBoardHeaderSubContainers
-            data-testid="customer_order_details__element-order-details-label-order-id"
+            data-testid="seller_order_details__element-order-details-label-order-id"
           >
-            {`Pedido ${generateOrderNumber(mask, order.id)}`}
+            {`Pedido ${generateOrderNumber(mask, saleOrder.id)}`}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderSubContainers
-            data-testid="customer_order_details__element-order-details-label-seller-name"
+            data-testid="seller_order_details__element-order-details-label-order-date"
           >
-            {`P. Vend: ${order.seller.name}`}
+            {moment(saleOrder.saleDate).format('DD/MM/YYYY')}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderSubContainers
-            data-testid="customer_order_details__element-order-details-label-order-date"
+            data-testid={ saleStatuId }
           >
-            {moment(order.saleDate).format('DD/MM/YYYY')}
-          </OrderDetailsBoardHeaderSubContainers>
-          <OrderDetailsBoardHeaderSubContainers
-            data-testid={ dSId }
-          >
-            {order.status}
+            {saleOrder.status}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderButton
-            data-testid="customer_order_details__button-delivery-check"
+            data-testid="seller_order_details__button-preparing-check"
             disabled
           >
             Marcar como entregue
+          </OrderDetailsBoardHeaderButton>
+          <OrderDetailsBoardHeaderButton
+            data-testid="seller_order_details__button-dispatch-check"
+            disabled
+          >
+            Saiu para entrega
           </OrderDetailsBoardHeaderButton>
         </OrderDetailsBoardHeader>
         <OrderDetailsBoardTable>
@@ -87,40 +88,44 @@ const CustomerOrders = () => {
             </OrderDetailsBoardRow>
           </OrderDetailsBoardTableHeader>
           <OrderDetailsBoardTableBody>
-            <ConditionalComponent condition={ order && order.products.length > 0 }>
-              { order.products.map((product, index) => (
+            <ConditionalComponent
+              condition={
+                saleOrder && saleOrder.products.length > 0
+              }
+            >
+              { saleOrder.products.map((product, index) => (
                 <OrderDetailsBoardTableRow key={ product.id }>
                   <OrderDetailsBoardTableCell
                     data-testid={
-                      `customer_order_details__element-order-table-item-number-${index}`
+                      `seller_order_details__element-order-table-item-number-${index}`
                     }
                   >
                     { index }
                   </OrderDetailsBoardTableCell>
                   <OrderDetailsBoardTableCell
                     data-testid={
-                      `customer_order_details__element-order-table-name-${index}`
+                      `seller_order_details__element-order-table-name-${index}`
                     }
                   >
                     { product.name }
                   </OrderDetailsBoardTableCell>
                   <OrderDetailsBoardTableCell
                     data-testid={
-                      `customer_order_details__element-order-table-quantity-${index}`
+                      `seller_order_details__element-order-table-quantity-${index}`
                     }
                   >
                     { product.SaleProduct.quantity }
                   </OrderDetailsBoardTableCell>
                   <OrderDetailsBoardTableCell
                     data-testid={
-                      `customer_order_details__element-order-table-sub-total-${index}`
+                      `seller_order_details__element-order-table-unit-price-${index}`
                     }
                   >
                     { `R$ ${String((+product.price).toFixed(2).replace('.', ','))}` }
                   </OrderDetailsBoardTableCell>
                   <OrderDetailsBoardTableCell
                     data-testid={
-                      `customer_order_details__element-order-total-price-${index}`
+                      `seller_order_details__element-order-table-sub-total-${index}`
                     }
                   >
                     { `R$ ${String(
@@ -135,13 +140,13 @@ const CustomerOrders = () => {
           </OrderDetailsBoardTableBody>
         </OrderDetailsBoardTable>
         <OrderDetailsBoardTotalPrice
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid="seller_order_details__element-order-total-price"
         >
-          { `Total: R$ ${String((+order.totalPrice).toFixed(2).replace('.', ','))}` }
+          { `Total: R$ ${String((+saleOrder.totalPrice).toFixed(2).replace('.', ','))}` }
         </OrderDetailsBoardTotalPrice>
       </OrderDetailsBoard>
     </OrderDetailsContainer>
   );
 };
 
-export default CustomerOrders;
+export default SellerOrderDetails;

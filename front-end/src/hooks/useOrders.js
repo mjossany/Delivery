@@ -6,6 +6,16 @@ const useOrders = () => {
   const [customerOrders, setCustomerOrders] = useState([]);
   const [sellerOrders, setSellerOrders] = useState([]);
   const [order, setOrder] = useState(null);
+  const [saleOrder, setSaleOrder] = useState(null);
+
+  const getSaleById = useCallback(async (saleId) => {
+    try {
+      const { data } = await api.get(`/seller/orders/${saleId}`);
+      setSaleOrder(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const getOrderById = useCallback(async (orderId) => {
     try {
@@ -50,6 +60,8 @@ const useOrders = () => {
     formatData,
     sellerOrders,
     getAllSellerOrders,
+    getSaleById,
+    saleOrder,
   };
 };
 
