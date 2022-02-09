@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   AllOrdersContainer,
@@ -21,7 +21,12 @@ const AllCustomerOrders = () => {
     customerOrders,
     generateOrderNumber,
     formatData,
+    getAllCustomerOrders,
   } = useOrders();
+
+  useEffect(() => {
+    getAllCustomerOrders();
+  }, [getAllCustomerOrders]);
 
   const navigate = useNavigate();
 
