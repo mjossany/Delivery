@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/navbar';
+import { OrdersContext } from '../../context/orders';
 import { UserContext } from '../../context/user';
-import useOrders from '../../hooks/useOrders';
 import {
   AllOrdersContainer,
   OrderContainer,
@@ -21,13 +21,11 @@ import {
 const mask = '0000';
 const AllSellerOrders = () => {
   const {
-    sellerOrders,
     generateOrderNumber,
     formatData,
     getAllSellerOrders,
-  } = useOrders();
-
-  console.log(sellerOrders);
+    sellerOrders,
+  } = useContext(OrdersContext);
 
   const {
     user: { id },
@@ -38,6 +36,8 @@ const AllSellerOrders = () => {
   }, [getAllSellerOrders, id]);
 
   const navigate = useNavigate();
+
+  console.log(sellerOrders);
 
   return (
     <AllOrdersContainer>

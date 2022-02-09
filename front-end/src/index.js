@@ -6,16 +6,19 @@ import App from './App';
 import UserProvider from './context/user';
 import ProductsProvider from './context/products';
 import CartProvider from './context/cart';
+import OrdersProvider from './context/orders';
 
 ReactDOM.render(
   <React.StrictMode>
-    <UserProvider>
-      <ProductsProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </ProductsProvider>
-    </UserProvider>
+    <OrdersProvider>
+      <UserProvider>
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
+      </UserProvider>
+    </OrdersProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

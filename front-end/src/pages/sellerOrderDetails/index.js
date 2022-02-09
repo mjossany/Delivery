@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import useOrders from '../../hooks/useOrders';
 import NavBar from '../../components/navbar';
 import ConditionalComponent from '../../components/ConditionalComponent';
 import {
@@ -19,20 +18,23 @@ import {
   OrderDetailsBoardTableCell,
   OrderDetailsBoardTotalPrice,
 } from './style';
+import { OrdersContext } from '../../context/orders';
 
 const SellerOrderDetails = () => {
   const { id } = useParams();
   const {
+    sellerOrders,
     saleOrder,
     getSaleById,
     generateOrderNumber,
-  } = useOrders();
+    toPreparing,
+    inTransit,
+  } = useContext(OrdersContext);
 
   useEffect(() => {
     getSaleById(id);
-  }, [getSaleById, id]);
+  }, [getSaleById, id, sellerOrders]);
 
-  console.log(saleOrder);
   if (!saleOrder) {
     return <h1>Loading</h1>;
   }
@@ -40,6 +42,9 @@ const SellerOrderDetails = () => {
   const headersArray = ['Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total'];
   const mask = '0000';
   const saleStatuId = 'seller_order_details__element-order-details-label-delivery-status';
+
+  console.log(sellerOrders);
+  console.log(saleOrder);
 
   return (
     <OrderDetailsContainer>
@@ -63,13 +68,18 @@ const SellerOrderDetails = () => {
             {saleOrder.status}
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderButton
+            onClick={ () => toPreparing(id) }
             data-testid="seller_order_details__button-preparing-check"
+            disabled={
+              saleOrder.status === 'Entregue' || saleOrder.status === 'Preparando'
+            }
           >
             Preparar pedido
           </OrderDetailsBoardHeaderButton>
           <OrderDetailsBoardHeaderButton
+            onClick={ () => inTransit(id) }
             data-testid="seller_order_details__button-dispatch-check"
-            disabled
+            disabled={ saleOrder.status !== 'Preparando' }
           >
             Saiu para entrega
           </OrderDetailsBoardHeaderButton>
