@@ -64,9 +64,8 @@ const SellerOrderDetails = () => {
           </OrderDetailsBoardHeaderSubContainers>
           <OrderDetailsBoardHeaderButton
             data-testid="seller_order_details__button-preparing-check"
-            disabled
           >
-            Marcar como entregue
+            Preparar pedido
           </OrderDetailsBoardHeaderButton>
           <OrderDetailsBoardHeaderButton
             data-testid="seller_order_details__button-dispatch-check"
