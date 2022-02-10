@@ -56,7 +56,7 @@ const useUser = () => {
         title: 'Usuário inválido!',
         icon: 'warning',
         confirmButtonText: 'Ok',
-        html: httpErros.find(({ message }) => message === errMessage).comp,
+        html: httpErros.find(({ message }) => message === errMessage),
       });
       setErrMessage('');
     }

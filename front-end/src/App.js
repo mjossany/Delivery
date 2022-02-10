@@ -7,6 +7,7 @@ import CustomerProducts from './pages/customerProducts';
 import './globalStyles.css';
 import Checkout from './pages/checkout';
 import CustomerOrder from './pages/customerOrder';
+import Admin from './pages/admin';
 import { UserContext } from './context/user';
 import AllCustomerOrders from './pages/allCustomerOrders';
 import AllSellerOrders from './pages/allSellerOrders';
@@ -18,6 +19,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {
+          !user && (
+            <>
+              <Route exact path="/login" element={ <Login /> } />
+              <Route exact path="/register" element={ <Signup /> } />
+              <Route path="*" element={ <Navigate to="/login" /> } />
+            </>
+          )
+        }
         {
           (user && user.role === 'seller') && (
             <>
@@ -38,15 +48,12 @@ function App() {
             </>
           )
         }
-        {
-          !user && (
-            <>
-              <Route exact path="/login" element={ <Login /> } />
-              <Route exact path="/register" element={ <Signup /> } />
-              <Route path="*" element={ <Navigate to="/login" /> } />
-            </>
-          )
-        }
+        { (user && user.role === 'administrator') && (
+          <>
+            <Route path="/admin/manage" element={ <Admin /> } />
+            <Route path="/*" element={ <Navigate to="/admin/manage" /> } />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );
