@@ -19,7 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      {
+        {
           !user && (
             <>
               <Route exact path="/login" element={ <Login /> } />
