@@ -40,7 +40,10 @@ function App() {
           )
         }
         { (user && user.role === 'administrator') && (
-          <Route path="/admin/manage" element={ <Admin /> } />
+          <>
+            <Route path="/admin/manage" element={ <Admin /> } />
+            <Route path="/*" element={ <Navigate to="/admin/manage" /> } />
+          </>
         )}
         {
           !user && (
