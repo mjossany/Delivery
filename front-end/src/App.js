@@ -19,6 +19,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      {
+          !user && (
+            <>
+              <Route exact path="/login" element={ <Login /> } />
+              <Route exact path="/register" element={ <Signup /> } />
+              <Route path="*" element={ <Navigate to="/login" /> } />
+            </>
+          )
+        }
         {
           (user && user.role === 'seller') && (
             <>
@@ -45,15 +54,6 @@ function App() {
             <Route path="/*" element={ <Navigate to="/admin/manage" /> } />
           </>
         )}
-        {
-          !user && (
-            <>
-              <Route exact path="/login" element={ <Login /> } />
-              <Route exact path="/register" element={ <Signup /> } />
-              <Route path="*" element={ <Navigate to="/login" /> } />
-            </>
-          )
-        }
       </Routes>
     </BrowserRouter>
   );
